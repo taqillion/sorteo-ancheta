@@ -310,14 +310,6 @@
     prepTimer = setTimeout(() => { generarImagen().catch(() => {}); }, 300);
   }
 
-  function textoCompartir(){
-    const libres = [];
-    for (let n = 0; n < 100; n++) if (!tachados.has(n)) libres.push(etiqueta(n));
-    if (libres.length === 0) return "Sorteo de ancheta: todos los números están tachados.";
-    if (libres.length === 100) return "Sorteo de ancheta: todos los números están libres. Boleta a $6.000.";
-    return "Sorteo de ancheta: quedan " + libres.length + " números libres: " + libres.join(", ") + ". Boleta a $6.000.";
-  }
-
   function leerComoDataUrl(archivo){
     return new Promise((res, rej) => {
       const lector = new FileReader();
@@ -352,7 +344,7 @@
     btnExportar.disabled = false;
     btnExportar.textContent = "Compartir";
 
-    const paquete = { files: [datos.archivo], title: "Sorteo de ancheta", text: textoCompartir() };
+    const paquete = { files: [datos.archivo], title: "Sorteo de ancheta" };
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [datos.archivo] })){
       try {
         await navigator.share(paquete);
